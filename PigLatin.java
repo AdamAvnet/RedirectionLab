@@ -21,7 +21,8 @@ public class PigLatin{
 				System.out.print(pigLatinSimple(latin));
 				System.out.print(" ");
 			}
-			System.out.println();
+			if(Sca.hasNextLine())
+				System.out.println();
 		}
 	}
 
