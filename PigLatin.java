@@ -28,7 +28,20 @@ public class PigLatin{
 		return piggy.toLowerCase();
 	}
 		
-		
+	public static String pigLatin(String str){
+		char fl = str.charAt(0);
+		String ftwo = "aaa";
+		if(str.length() > 2)
+			ftwo = str.substring(0, 2);
+		String piggy = "";
+		if (isVowel(fl))
+			piggy = str + "hay";
+		else if (isDigraph(ftwo))
+			piggy = str.substring(2, str.length()) + str.substring(0, 2) + "ay";
+		else
+			piggy = str.substring(1, str.length()) + str.valueOf(fl) + "ay";
+		return piggy.toLowerCase();
+	}
 
 	public static void main(String[] args){
 		Scanner Sca = new Scanner(System.in);
@@ -37,7 +50,7 @@ public class PigLatin{
 			Scanner Scar = new Scanner(pig);
 			while(Scar.hasNext()){
 				String latin = Scar.next();
-				System.out.print(pigLatinSimple(latin));
+				System.out.print(pigLatin(latin));
 				System.out.print(" ");
 			}
 			if(Sca.hasNextLine())
