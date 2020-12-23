@@ -17,6 +17,17 @@ public class PigLatin{
 			return true;
 		return ftwo.equals("tw") || ftwo.equals("wh") || ftwo.equals("wr");
 	}
+
+	public static boolean isLetter(String fl){
+		fl = fl.toLowerCase();
+		if (fl.equals("a") || fl.equals("b") || fl.equals("c") || fl.equals("d") || fl.equals("e") || fl.equals("f") || fl.equals("g"))
+			return true;
+		if (fl.equals("h") || fl.equals("i") || fl.equals("j") || fl.equals("k") || fl.equals("l") || fl.equals("m") || fl.equals("n"))
+			return true;
+		if (fl.equals("o") || fl.equals("p") || fl.equals("q") || fl.equals("r") || fl.equals("s") || fl.equals("t") || fl.equals("u"))
+			return true;
+		return fl.equals("v") || fl.equals("w") || fl.equals("x") || fl.equals("y") || fl.equals("z");
+	}
 		
 	public static String pigLatinSimple(String str){
 		char fl = str.charAt(0);
@@ -31,15 +42,47 @@ public class PigLatin{
 	public static String pigLatin(String str){
 		char fl = str.charAt(0);
 		String ftwo = "aaa";
-		if(str.length() > 2)
+		if(str.length() > 1)
 			ftwo = str.substring(0, 2);
 		String piggy = "";
 		if (isVowel(fl))
 			piggy = str + "hay";
 		else if (isDigraph(ftwo))
-			piggy = str.substring(2, str.length()) + str.substring(0, 2) + "ay";
+			piggy = str.substring(2, str.length()) + ftwo + "ay";
 		else
 			piggy = str.substring(1, str.length()) + str.valueOf(fl) + "ay";
+		return piggy.toLowerCase();
+	}
+
+
+	public static String pigLatinBest(String str){
+		char fl = str.charAt(0);
+		String piggy = str;
+		boolean punct = false;
+		String ftwo = "aaa";
+		String ll = str.substring(str.length() - 1, str.length());
+		if(str.length() > 1)
+			ftwo = str.substring(0, 2);
+		if(!isLetter(str.valueOf(fl)))
+			return piggy;
+		if(!isLetter(ll))
+			punct = true;
+		if(isVowel(fl)){
+			if(punct)
+				piggy = str.substring(0, str.length() - 1) + "hay" + ll;
+			else
+				piggy = str + "hay";
+		}else if(isDigraph(ftwo)){
+			if(punct)
+				piggy = str.substring(2, str.length() - 1) + ftwo + "ay" + ll;
+			else
+				piggy = str.substring(2, str.length()) + ftwo + "ay";
+		}else{
+			if(punct)
+				piggy = str.substring(1, str.length() - 1) + str.valueOf(fl) + "ay" + ll;
+			else
+				piggy = str.substring(1, str.length()) + str.valueOf(fl) + "ay";
+		}
 		return piggy.toLowerCase();
 	}
 
@@ -50,7 +93,7 @@ public class PigLatin{
 			Scanner Scar = new Scanner(pig);
 			while(Scar.hasNext()){
 				String latin = Scar.next();
-				System.out.print(pigLatin(latin));
+				System.out.print(pigLatinBest(latin));
 				System.out.print(" ");
 			}
 			if(Sca.hasNextLine())
